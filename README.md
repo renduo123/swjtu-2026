@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/renduo123/swjtu-2021/blob/main/banner.jpg?raw=true" alt="SWJTU Vehicle Engineering 2026" width="100%" style="border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+  <img src="[https://github.com/renduo123/swjtu-2021/blob/main/banner.jpg?raw=true](https://github.com/renduo123/swjtu-2026/blob/main/banner.jpg)" alt="SWJTU Vehicle Engineering 2026" width="100%" style="border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
   <h1>西南交大车辆工程2021届学习资料备份 🚄</h1>
   <p><strong>我的大学全套学习资料备份 | 笔记 + 实验 + 代码 + 报告 + PPT + 思维导图</strong></p>
   
