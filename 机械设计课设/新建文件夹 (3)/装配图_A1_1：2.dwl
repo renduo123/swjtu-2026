@@ -1,0 +1,3 @@
+Lenovo
+LAPTOP-VSCMIHIE 
+2025Äê8ÔÂ31ÈÕ  13:38:24
