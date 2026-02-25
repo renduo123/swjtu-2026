@@ -2,7 +2,7 @@
   <h1>🎓 swjtu-2026 西南交大车辆工程专业学习资料</h1>
   <p>车辆工程全课程笔记、实验报告、代码、总结 ｜ 持续更新</p>
 
-  <img src="https://img.shields.io/badge/SWJTU-2026届-blue.svg" alt="西南交大2026届">
+  <img src="https://img.shields.io/badge/SWJTU-2021届-blue.svg" alt="西南交大2026届">
   <img src="https://img.shields.io/badge/专业-车辆工程-green.svg" alt="车辆工程">
   <img src="https://img.shields.io/github/last-commit/renduo123/swjtu-2026?color=orange" alt="最后更新">
   <img src="https://img.shields.io/github/stars/renduo123/swjtu-2026?style=social" alt="星标数">
