@@ -1,0 +1,118 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Volume
+{
+private :
+	double Radius;
+	double Height;
+	string Name;
+public :
+	void SetRadius(int r) 	     //设置圆柱体半径为r
+	{ Radius=r; }
+	void SetHeight(int h)  	 //设置圆柱体高度为h
+	{ Height=h; }
+    void SetName(string mm)     //设置圆柱体名称为mm
+	{ Name=mm; }
+	int GetRadius() 		     //获取圆柱体半径
+	{ return Radius; }
+	int GetHeight()		     //获取圆柱体高度
+	{ return Height; }
+	double GetVolume()	     //获取圆柱体体积
+	{ return 3.14*Radius*Radius*Height; }
+	double GetSphere()     //获取圆柱体表面积
+	{ return 3.14*Radius*Radius*2+2*3.14*Radius*Height; }
+    void  DispInfo()		     //显示圆柱体的基本信息
+	{
+		cout<<"*****************************"<<endl;
+		cout<<"圆柱体的名称是："<<Name<<endl;
+		cout<<"其高是："<<GetRadius()<<endl;
+		cout<<"其半径是："<<GetHeight()<<endl;
+		cout<<"其体积是："<<GetVolume()<<endl;
+		cout<<"其表面积是："<<GetSphere()<<endl;
+	}
+
+    Volume(){};			         //不带任何参数的构造函数
+
+    Volume(int h, int r, string name);	//构造函数，初始化圆柱体的高、半径及名字
+
+    ~Volume()		     //析构函数，显示提示信息如“**圆柱体消失了”
+	{ cout<<Name<<"圆柱体消失了！"<<endl; }
+};
+
+Volume::Volume(int h, int r, string name)
+{
+	Radius=r;
+	Height=h;
+	Name=name;
+}
+
+int main()
+{
+	double r;
+	double h;
+	string mc;
+    Volume A;	Volume B;
+	Volume C(5,4,"V3");
+	cout<<"请输入第一个圆柱体的名称、半径、高：";
+	cin>>mc>>r>>h;
+
+	A.SetHeight(h);
+	A.SetRadius(r);
+	A.SetName(mc);
+	cout<<"请输入第一个圆柱体的名称、半径、高：";
+	cin>>mc>>r>>h;
+
+	B.SetHeight(h);
+	B.SetRadius(r);
+	B.SetName(mc);	
+
+    A.DispInfo();
+    B.DispInfo();
+	C.DispInfo();
+	return 0;
+}
+
+
+
+void C第一次mfcDlg::OnBnClickedButton1()
+{
+	UpdateData(TRUE);
+	int i,j,m,n(0);
+	for(i=a;i<b;i++)
+{		
+	m=0;                 //---------------重点！
+	for(j=1;j<i;j++)
+			if(i%j==0)
+				m=m+j;
+	if(m==i)
+		n=n+m;
+}
+	d=n;
+	UpdateData(FALSE);
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void C第一次mfcDlg::OnBnClickedButton2()
+{
+		UpdateData(TRUE);
+	int i,j,n(0);
+	for(i=a;i<b;i++)
+{		for(j=2;j<i;j++)
+			if(i%j==0)
+				break;
+	if(j==i)
+		n=n+i;
+}
+	e=n;
+	UpdateData(FALSE);
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+void C第一次mfcDlg::OnBnClickedButton3()
+{
+	CDialogEx::OnCancel();
+	// TODO: 在此添加控件通知处理程序代码
+}

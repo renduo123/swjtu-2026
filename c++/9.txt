@@ -1,0 +1,112 @@
+#include <iostream>
+using namespace std;
+int main ()
+{
+	int x,n,*px=&x,*pn=&n;
+	double sum(0),*psum=&sum,i,a(1),b,c;
+	cout<<"请输入x、n的值：";
+	cin>>*px;
+	cin>>*pn;
+	sum=*px;
+	c=x;
+	cout<<sum;
+	for(i=2;i<=*pn;i++)
+	{
+		x=c*x;
+		a=a*i;
+		b=x/a;
+		cout<<"+"<<b;
+		sum=sum+b;
+	}
+	cout<<"="<<sum<<endl;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+int main ()
+{
+	int a[10],*p,i,j=0;
+	p=a;
+	cout<<"请输入10个整数："<<endl;
+	for(i=0;i<10;i++)
+	cin>>*(p++);
+	for(p=a;p<a+10;p++)
+		if(*p%3==0)
+			j++;
+	cout<<"能被3整除的数有"<<j<<"个"<<endl;
+	return 0;
+}
+
+
+
+
+
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+using namespace std;
+int main ()
+{
+	int a[30],*p=a,i,s1=0,s2=0,s3=0,s4=0,s5=0;
+	srand(time(NULL));
+	for(p=a;p<a+30;p++)
+		*p=0+rand()%101;
+	cout<<"学生成绩为："<<endl;
+	for(p=a,i=1;p<a+30;i++,p++)	
+	{  cout<<setw(4)<<*p;
+	    if(i%10==0)
+			cout<<endl;
+	}
+	for(p=a;p<a+30;p++)
+	switch(*p%10)
+	{
+	        case 10:
+			case 9:s1++;break;
+			case 8:s2++;break;
+			case 7:s3++;break;
+			case 6:s4++;break;
+			default:s5++;
+	}
+	cout<<"学生成绩统计如下："<<endl;
+	cout<<"分数段  90-100   80-89  70-79   60-69  60以下"<<endl;
+	cout<<"  人数";
+	cout<<setw(4)<<s1<<setw(4)<<s2<<setw(4)<<s3<<setw(4)<<s4<<setw(4)<<s5<<endl;
+	return 0;
+}
+
+
+
+#include <iostream>
+#include<iomanip>
+using namespace std;
+int main ()
+{
+	int a[10],*p=a,b,i,m;
+	cout<<"请输入10个数：";
+	for(p=a;p<a+10;p++)
+	cin>>*p;
+	cout<<"请输入欲左移位数的值：";
+	cin>>m;
+	for(p=a,i=0;i<m%10;i++)
+	{
+		b=*p;
+	    for(p=a;p<a+9;p++)
+		*p=*(p+1);
+		p=a;
+		*(p+9)=b;
+	}
+	cout<<"循环左移"<<m<<"位后，数组元素为："<<endl;
+	for(p=a;p<a+10;p++)
+	cout<<setw(5)<<*p;
+	cout<<endl;
+	return 0;
+}

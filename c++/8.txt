@@ -1,0 +1,152 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	const int N=10;
+	int a[N][N],n,i,j,m,k;
+	cout<<"请输入矩阵的阶：";
+	cin>>n;
+	cout<<"请输入一个"<<n<<"*"<<n<<"矩阵，每个数之间用空格间隔，每行输入完成后按回车："<<endl;
+	for(i=0;i<n;i++)
+	{	for(j=0;j<n;j++)
+			cin>>a[i][j];
+	}
+    m=a[0][0];
+	for(i=1;i<n;i++)
+		if(m<a[i][i])
+		  m=a[i][i];
+	for(i=0,k=1;i<n;i++,k++)
+		if(m==a[i][i])
+		  break;
+	cout<<"对角线上最大的数为："<<m<<"，行号为："<<k<<endl;
+return 0;
+}
+
+
+
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main()
+{
+	const int M=100;
+	int x[M][M],m,n(1),i,j;
+	cout<<"请输入m的值：";
+	cin>>m;
+	
+	for(j=0;j<m;j++)
+		for(i=m-1;i>=j;n++,i--)
+			x[i][j]=n;
+
+
+	for(i=0;i<m;i++)
+    {   
+		cout<<x[i][0];
+		for(j=1;j<i+1;j++)
+			cout<<setw(6)<<x[i][j];
+	cout<<endl;
+	}
+	for(i=0;i<m;i++)
+	{	for(j=0;j<m-1-i;j++)
+	    cout<<setw(3)<<" ";
+	    cout<<x[i][0];
+		for(j=1;j<i+1;j++)
+			cout<<setw(6)<<x[i][j];
+		cout<<endl;
+	}
+	return 0;
+}
+
+
+
+
+
+#include <iostream>
+using namespace std;
+int main()
+{
+	const int N=10;
+	int x[N][N],n,i,j,m(1),a,b;
+	cout<<"请输入正方形层数：";
+	cin>>n;
+	for(i=0,j=0;j<n;i++,j++,m++)
+	{
+		for(a=i;a<2*n-1-i;a++)
+		    for(b=j;b<2*n-1-i;b++)
+			    x[a][b]=m;
+	}
+	for(a=0;a<2*n-1;a++)
+	{	    for(b=0;b<2*n-1;b++)
+			    cout<<x[a][b]<<" ";
+	cout<<endl;
+	}
+	return 0;
+}
+
+
+
+
+#include <iostream>
+using namespace std;
+int main()
+{
+	const int M=21;
+	int a[M][M],m,n(0),i,j;
+	cout<<"请输入学生人数：";
+	cin>>m;
+	cout<<"请按以下顺序输入："<<endl;
+	cout<<"学号  科目1   科目2   科目3"<<endl;
+	for(i=0;i<m;i++)
+		for(j=0;j<m;j++)
+			cin>>a[i][j]; 
+	for(i=0;i<m;i++)
+    {   
+		for(j=1;j<m;j++)
+	 	    n=n+a[i][j];
+		n=n/3;
+	    a[i][20]=n;
+		n=0;
+	}
+	for(i=0;i<m;i++)
+		cout<<"学号为"<<a[i][0]<<"的同学平均分为："<<a[i][20]<<endl;
+	
+	for(j=1;j<m;j++)
+	{	for(i=0;i<m;i++)
+			n=n+a[i][j];
+	n=n/m;
+	a[20][j-1]=n;
+	n=0;
+	}
+	for(i=0;i<3;i++)
+		cout<<"科目"<<i+1<<"的平均分为："<<a[20][i]<<endl;
+
+	return 0;
+}
+
+
+
+
+#include <iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	int i,j;
+    char b;
+	string a;
+	cout<<"请输入一个字符串："<<endl;
+    getline(cin,a);
+	cout<<"请输入要查找的字母:";
+	cin>>b;
+	for(i=0;i<a.size();i++)
+	  if(a[i]==b||a[i]==b+32||a[i]==b-32)
+	  {
+		cout<<"字母"<<b<<"在字符串"<<a<<"中第一次出现在第"<<i+1<<"个"<<endl;
+	    break;
+	  }
+	  if(i==a.size())
+		  cout<<"在字符串"<<a<<"中没有字母"<<b<<endl;
+	return 0;
+}
+

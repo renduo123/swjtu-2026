@@ -1,0 +1,133 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int n,m,i,j,k,l;
+	int a,b,c,d;
+	cout<<"请输入班级数量：";
+	cin>>n;
+		for(j=1,k=1;j<=n;j++,k++)
+	{
+	cout<<"========================"<<endl;
+	cout<<"请输入"<<k<<"班的学生数量：";
+	cin>>m;
+	    for(i=1,l=1;i<=m;i++,l++)
+	{
+	cout<<"请输入第"<<l<<"个学生的学号、语文、数学、英语成绩："<<endl;
+	cin>>a>>b>>c>>d;
+	if(b>c&&b>d)
+		cout<<"学生"<<a<<"语文学习好！语文成绩为："<<b<<endl;
+	else if(c>b&&c>d)
+		cout<<"学生"<<a<<"数学学习好！数学成绩为："<<c<<endl;
+	else
+		cout<<"学生"<<a<<"英语学习好！英语成绩为："<<d<<endl;
+	}}
+	return 0;
+}
+
+
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int s,e,w,i=1;
+	cout<<"兑换百元大钞的方案如下："<<endl;
+	cout<<"    拾元    贰拾元    伍拾元"<<endl;
+	for(s=0;s<=10;s++)
+		for(e=0;e<=5;e++)
+			for(w=0;w<=2;w++)
+				if(10*s+50*w+20*e==100)
+					{
+						cout<<setw(2)<<i<<setw(7)<<s<<setw(9)<<e<<setw(10)<<w<<endl;
+						i++;
+				}
+				    
+return 0;
+}
+
+
+
+
+
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int m,n,w,i,j,r=0;
+	cout<<"请按从小到大的顺序输入两个正整数："<<endl;
+	cin>>m>>n;
+	cout<<m<<"到"<<n<<"之间各位数字之和为7的数有："<<endl;
+	for(w=m;m<=n;w=m+1,r=0,m++)
+		{
+		j=w;
+			do
+			{
+			i=w%10;
+			r=r+i;
+			w=w/10;
+		    }while(w>0);
+		if(r==7)
+		cout<<left<<setw(8)<<j;
+	     }
+	return 0;
+}
+
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int m,n,w(0),i,j,f,a;
+	cout<<"请输入两个正整数："<<endl;
+	cin>>m>>n;
+		if(m>n)
+	{	
+		f=m;
+	    m=n;
+		n=f;
+	}
+	
+	     for(i=m;i<=n;i++)
+	    {
+		   a=1;
+		   for(j=2;j<i;j++)
+		       if(i%j==0)
+		           {a=0; 
+		            break;}
+		     if(a==1)
+			        w=w+i;
+	     }
+        cout<<m<<"与"<<n<<"之间所有素数的和为"<<w<<endl;
+	return 0;
+}
+
+
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int n,i,j,a,b,c,d;
+	cout<<"请输入n的值(n<10)：";
+	cin>>n;
+	for(i=1;i<=n;i++)
+		{for(a=1;a<=n-i;a++)
+			cout<<" ";
+	     for(b=1;b<=i;b++)
+			cout<<i;
+	         cout<<endl;}
+    for(j=1;j<=n;j++)
+		{for(c=1;c<=j;c++)
+			cout<<" ";
+	     for(d=1;d<=n-j;d++)
+			cout<<n-j;}
+		return 0;
+}

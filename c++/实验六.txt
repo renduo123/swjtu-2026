@@ -1,0 +1,80 @@
+#include<iomanip>
+using namespace  std;
+int main()
+{
+	const int N=50;
+	int i,k(20),n(34),l;
+	double a[N],j(0);
+	cout<<"请输入15个实型数:"<<endl;
+	for(i=0;i<15;i++)
+		cin>>a[i];
+	for(i=0;i<15;i++)
+		{
+			cout<<setw(10)<<a[i];
+	    if((i+1)%5==0)
+		   cout<<endl;
+	     }
+	for(i=0;i<15;i++)
+		j=j+a[i];
+	a[15]=j/15;
+	for(i=0;i<15;i++)
+   {    if(a[i]<a[15])
+			a[n--]=a[i];
+	    else if(a[i]>=a[15])
+			a[k++]=a[i];
+   }
+	for(i=20;i<35;i++)
+		a[i-20]=a[i];
+
+	cout<<"调整后的数据为："<<endl;
+	for(i=0;i<=15;i++)
+		{
+			cout<<setw(10)<<a[i];
+	    if((i+1)%5==0)
+		   cout<<endl;
+	     }
+	cout<<endl;
+	return 0;
+}
+
+
+
+#include <iostream>
+#include<iomanip>
+using namespace  std;
+bool prime(int x)
+{
+	int y;
+	for(y=2;y<x;y++)
+		if(x%y==0)
+			break;
+	if(y==x)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	int a[10],b[10];
+	int i,j,m,n,k(0),c,d(0);
+	cout<<"请输入10个正整数："<<endl;
+	for(i=0;i<10;i++)
+		cin>>a[i];
+	for(n=a[0],i=1;i<10;i++)
+		if(n<a[i])
+			{n=a[i];
+	         k=i;}
+	cout<<"数组中的最大值为："<<n<<"，其下标为"<<k<<endl;
+	for(c=a[0],i=1;i<10;i++)
+		if(c>a[i])
+			{c=a[i];
+	         d=i;}
+	cout<<"数组中的最小值为："<<c<<"，其下标为"<<d<<endl;
+	for(j=0,i=0;i<10;i++)
+		if(prime(a[i]))
+			b[j++]=a[i];
+	cout<<"素数为:";
+	for(;j>0;j--)
+		cout<<setw(4)<<b[j-1];
+	return 0;
+}

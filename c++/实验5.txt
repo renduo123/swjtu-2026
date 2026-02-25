@@ -1,0 +1,153 @@
+#include<iostream>
+using namespace std;
+double add(double x)
+{
+    if(x>0)
+		return sqrt(x);
+	else if(x==0)
+		return 0;
+	else
+		return fabs(x);
+}
+int main()
+{
+        cout<<"2021111750 任铎"<<endl;
+	double a,b;
+	cout<<"请输入x:";
+	cin>>a;
+	b=add(a);
+	cout<<"y="<<b<<endl;
+	return 0;
+}
+
+
+
+#include<iostream>
+#include<ctime>
+using namespace std;
+int main ()
+{
+        cout<<"2021111750 任铎"<<endl;
+	int a,b,c,fh;
+	srand(time(NULL));
+	a=1+rand()%10;
+	fh=1+rand()%3;
+	b=1+rand()%10;
+	switch(fh)
+		{
+	        case 1:cout<<"请计算"<<a<<"+"<<b<<"=";break;
+	        case 2:cout<<"请计算"<<a<<"-"<<b<<"=";break;
+		    case 3:cout<<"请计算"<<a<<"*"<<b<<"=";break;
+	    }
+	cin>>c;
+	int add(int,int,int);
+	if(c==add(a,b,fh))
+		cout<<"计算正确！"<<endl;
+	else
+		cout<<"计算错误！"<<a<<'fh'<<b<<"="<<add(a,b,fh)<<endl;
+	return 0;
+}
+int add(int x,int y,int op)
+	{
+		switch(op)
+		{
+		case 1:return x+y;break;
+		case 2:return x-y;break;
+		default:return x*y;
+		}
+     }
+
+
+
+
+
+
+#include<iostream>
+using namespace std;
+int add(int x,int y)
+{
+	int i,z(1);
+	for(i=1;i<=y;i++)
+		 z=z*x;
+	return z;
+}
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+	int a,b,m,n,p;
+	cout<<"求a的b次方与b的a次方的和，请输入a、b：";
+	cin>>a>>b;
+	cout<<a<<"的"<<b<<"次方为："<<add(a,b)<<endl;
+	cout<<b<<"的"<<a<<"次方为："<<add(b,a)<<endl;
+	cout<<a<<"的"<<b<<"次方与"<<b<<"的"<<a<<"次方的和为："<<add(a,b)+add(b,a)<<endl;
+}
+
+
+
+
+
+
+
+#include<iostream>
+using namespace std;
+int add(int p,int q)
+{
+	int r;
+	r=p%q;
+	if(r!=0)
+		do
+		{
+			p=q;
+			q=r;
+			r=p%q;
+		}while(r!=0);
+	return q;
+}
+int pdd(int x,int y)
+{
+	int z;
+	z=x*y/add(x,y);
+	return z;
+}
+int main()
+{
+	cout<<"2021111750 任铎"<<endl;
+    int a,b;
+	cout<<"请输入两个正整数：";
+	cin>>a>>b;
+	cout<<"最大公约数是："<<add(a,b)<<endl;
+	cout<<"最小公倍数是："<<pdd(a,b)<<endl;
+	return 0;
+}
+
+
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	bool prime(int);
+	int m,n,a,s=0;
+	cout<<"请依次输入数字m,n(n>m>0):"<<endl;
+	cin>>m>>n;
+	for(a=m;a<=n;a++)
+	   if(prime(a))
+		 s=s+a;
+	cout<<m<<'~'<<n<<"之间所有水仙花数之和为："<<s<<endl;
+	return 0;
+}
+bool prime(int x)
+{
+	  int j,k,l(0),p;
+	 for(j=x;j>0;)                                                        
+			  {
+				p=j%10;
+	                        k=p*p*p;
+				l=l+k;
+				j=j/10;
+	      	  }
+	  if(l==x)
+		  return true;
+	  else
+		  return false;
+}

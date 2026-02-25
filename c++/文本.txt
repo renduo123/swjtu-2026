@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	cout<<"hi,xjj"<<endl;
+		return 0;
+}
+
+
+
+#include <iostream>
+using namespace std;
+int main()
+{
+	char sb;
+	cout<<"请输入一个变量:";
+	cin>>sb;
+	sb=sb-'A'+'a';
+	cout<<"对应的小写字是："<<sb<<endl;
+	cout<<sb<<"的ASCII值是："<<sb+0;
+	return 0;
+}
