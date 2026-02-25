@@ -1,0 +1,82 @@
+A51 MACRO ASSEMBLER  ____5                                                                11/15/2024 22:26:43 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\实验5.obj
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\Keil\C51\BIN\A51.EXE 实验5.a51 SET(SMALL) DEBUG PRINT(.\Listings\实验5.lst)
+                       OBJECT(.\Objects\实验5.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1       ORG 0000H
+0000 020080            2             LJMP SE11
+0080                   3             ORG 0080H
+0080 758153            4                 SE11:MOV SP,#53H
+0083 75A0FF            5             mov p2,#0ffh
+0086 7443              6             MOV A,#43H
+0088 90FF20            7             MOV DPTR,#0FF20H
+008B F0                8             MOVX @DPTR,A
+008C 757E01            9             MOV 7EH,#01H
+008F 757D01           10             MOV 7DH,#01H
+0092 757C01           11             MOV 7CH,#01H
+0095 757B07           12             MOV 7BH,#07H
+0098 757A05           13             MOV 7AH,#05H
+009B 757900           14             MOV 79H,#00H            ;???????
+009E 1200A1           15                 LO18:LCALL SSEE              ;???????
+                      16                                    ;?????
+00A1 D2D4             17                 SSEE:SETB RS1                ;????
+00A3 7D05             18             MOV R5,#05H
+00A5 753020           19                 SSE2:MOV 30H,#20H
+00A8 75317E           20             MOV 31H,#7EH
+00AB 7F06             21             MOV R7,#06H
+00AD E530             22                 SSE1:MOV A,30H
+00AF F4               23             CPL A      
+00B0 90FF21           24             MOV DPTR,#0FF21H        ;???? 
+00B3 F0               25             MOVX @DPTR,A
+00B4 A831             26             MOV R0,31H
+00B6 E6               27             MOV A,@R0
+00B7 9000D3           28             MOV DPTR,#DDFF
+00BA 93               29             MOVC A,@A+DPTR          ;?????           
+00BB 90FF22           30        MOV DPTR,#0FF22H        ;????
+00BE F0               31             MOVX @DPTR,A
+00BF E530             32             MOV A,30H
+00C1 03               33             RR A                    ;??
+00C2 F530             34             MOV 30H,A
+00C4 1531             35             DEC 31H
+00C6 74FF             36             MOV A,#0FFH           
+00C8 90FF22           37             MOV DPTR,#0FF22H        ;???
+00CB F0               38             MOVX @DPTR,A
+00CC DFDF             39             DJNZ R7,SSE1            ;????????
+00CE DDD5             40             DJNZ R5,SSE2
+00D0 C2D4             41             CLR RS1
+00D2 22               42             RET
+00D3 C0F9A4B0         43                 DDFF:DB 0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90H
+00D7 999282F8                
+00DB 8090                    
+00DD 8883C6A1         44             DB 88H,83H,0C6H,0A1H,86H,8EH,0FFH,0CH,89H,0DEH
+00E1 868EFF0C                
+00E5 89DE                    
+                      45             END
+A51 MACRO ASSEMBLER  ____5                                                                11/15/2024 22:26:43 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DDFF . . . . . . .  C ADDR   00D3H   A   
+LO18 . . . . . . .  C ADDR   009EH   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+RS1. . . . . . . .  B ADDR   00D0H.4 A   
+SE11 . . . . . . .  C ADDR   0080H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+SSE1 . . . . . . .  C ADDR   00ADH   A   
+SSE2 . . . . . . .  C ADDR   00A5H   A   
+SSEE . . . . . . .  C ADDR   00A1H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

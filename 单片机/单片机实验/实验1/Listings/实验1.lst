@@ -1,0 +1,44 @@
+A51 MACRO ASSEMBLER  ____1                                                                11/12/2024 22:26:57 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\实验1.obj
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\Keil\C51\BIN\A51.EXE 实验1.a51 SET(SMALL) DEBUG PRINT(.\Listings\实验1.lst)
+                       OBJECT(.\Objects\实验1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1              ORG 0000H      
+0000 020080            2              LJMP NO1
+0080                   3              ORG 0080H
+0080 7810              4     NO1:   MOV R0,#10H     
+0082 7900              5              MOV R1,#00H
+0084 902000            6              MOV DPTR,#2000H
+0087 E0                7     NO2:   MOVX A,@DPTR
+0088 B45001            8              CJNE A,#50H,NO3  
+008B 09                9              INC R1            
+008C A3               10     NO3:   INC DPTR
+008D D8F8             11              DJNZ R0,NO2       
+008F 902022           12              MOV DPTR,#2022H
+0092 E9               13              MOV A,R1
+0093 F0               14              MOVX @DPTR,A       
+0094 80FE             15     NO4:   SJMP NO4
+                      16              END
+A51 MACRO ASSEMBLER  ____1                                                                11/12/2024 22:26:57 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+NO1. . . . . . . .  C ADDR   0080H   A   
+NO2. . . . . . . .  C ADDR   0087H   A   
+NO3. . . . . . . .  C ADDR   008CH   A   
+NO4. . . . . . . .  C ADDR   0094H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

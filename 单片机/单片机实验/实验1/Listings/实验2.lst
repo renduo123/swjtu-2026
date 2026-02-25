@@ -1,0 +1,48 @@
+A51 MACRO ASSEMBLER  ____2                                                                11/12/2024 22:26:57 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\สตั้2.obj
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\Keil\C51\BIN\A51.EXE ..\สตั้2\สตั้2.a51 SET(SMALL) DEBUG PRINT(.\Listings\ส
+                      ตั้2.lst) OBJECT(.\Objects\สตั้2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 020080            2             LJMP NO1
+0080                   3             ORG 0080H
+0080 902000            4     NO1: MOV DPTR,#2000H
+0083 7417              5          MOV A,#17H
+0085 F0                6              MOVX @DPTR,A
+0086 902001            7              MOV DPTR,#2001H
+0089 7450              8              MOV A,#50H
+008B F0                9              MOVX @DPTR,A
+008C 902000           10              MOV DPTR,#2000H
+008F E0               11              MOVX A,@DPTR
+0090 540F             12              ANL A,#0FH
+0092 C4               13              SWAP A
+0093 F8               14              MOV R0,A
+0094 A3               15              INC DPTR
+0095 E0               16              MOVX A,@DPTR
+0096 540F             17              ANL A,#0FH
+0098 48               18              ORL A,R0
+0099 A3               19              INC DPTR
+009A F0               20              MOVX @DPTR,A
+009B 80FE             21     NO2: SJMP NO2
+                      22          END
+A51 MACRO ASSEMBLER  ____2                                                                11/12/2024 22:26:57 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+NO1. . . . . . . .  C ADDR   0080H   A   
+NO2. . . . . . . .  C ADDR   009BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

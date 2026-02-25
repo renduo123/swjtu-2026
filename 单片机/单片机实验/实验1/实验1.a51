@@ -1,0 +1,16 @@
+	 ORG 0000H	
+	 LJMP NO1
+	 ORG 0080H
+NO1:   MOV R0,#10H     
+	 MOV R1,#00H
+	 MOV DPTR,#2000H
+NO2:   MOVX A,@DPTR
+	 CJNE A,#50H,NO3  
+	 INC R1            
+NO3:   INC DPTR
+	 DJNZ R0,NO2       
+	 MOV DPTR,#2022H
+	 MOV A,R1
+	 MOVX @DPTR,A       
+NO4:   SJMP NO4
+	 END
