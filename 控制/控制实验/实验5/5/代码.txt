@@ -1,0 +1,256 @@
+#include "stm32f4xx.h"
+#include "led.h"
+#include "delay.h"
+#include "exti.h"
+#include "stm32f4xx_pwr.h"
+#include "pwm.h"
+#include "tim.h"
+#include "dac.h"
+#include "math.h"
+
+#if defined  (HSE_VALUE)//ÖØÐÂ¶¨Òå¾§ÕñÆµÂÊ,°åÉÏÎª8 MHz
+ #undef HSE_VALUE
+ #define HSE_VALUE    ((uint32_t)8000000) 
+#endif
+
+int TK=40;						//²ÉÑùÖÜÆÚ±äÁ¿
+int TKK=0;						//²ÉÑùÖÜÆÚTKK=TK*0.5ms
+int TC=1;							//²ÉÑù¼ÆÊý
+int SPEC=50;					//¸ø¶¨×ªËÙ
+int IBAND=30;					//»ý·Ö·ÖÀëÖµ
+int kp=2;							//±ÈÀýÏµÊý	
+int ti=180;						//»ý·ÖÏµÊý	
+int td=80;						//Î¢·ÖÏµÊý
+float K,P,I,D;
+int DAOUT1,DAOUT2;
+int PWM;							
+int ZV,ZVV,MARK,VADD;				
+int  YK=0;									
+int EK,EK_1;							
+int  ZEK;								
+int AEK,AEK_1;						
+int  UK,CK;
+
+extern uint8_t RxBuffer[];
+extern __IO uint16_t RxCounter;
+
+void pid(void);     //ÉùÃ÷×Óº¯Êý
+void COM_Init(void);
+
+uint8_t dtime = 1;
+
+void clear_rxbuf(void)
+{
+	char i;
+	for(i=0; i<10; i++) RxBuffer[i] = 0;
+	RxCounter = 0;
+}
+int main(void) 
+{  
+		//uint16_t i;
+		ZV=ZVV=MARK=VADD=0;
+		YK=EK=EK_1=ZEK=AEK=0;
+		UK=CK=0;
+	
+		led_init();									//LED³õÊ¼»¯
+	  bsp_InitDAC();							//DAC³õÊ¼»¯
+    pwm_init(255,16799);				//PWM³õÊ¼»¯
+	  exti_init();								//Íâ²¿ÖÐ¶Ï³õÊ¼»¯
+	  TIM_Configuration();				//¶¨Ê±Æ÷³õÊ¼»¯
+	  TIM_SetCompare3(TIM3,256);	//ÉèÖÃPWM³õÖµ
+		COM_Init();
+	  delay_ms(2000);							//ÑÓÊ±
+		USART_ClearFlag(USART2, USART_FLAG_TC);
+
+		while(1)
+		{
+			switch(RxBuffer[0]) {				// ´®¿Ú½ÓÊÕÃüÁîÅÐ¶Ï
+				case 0x60:								// Æô¶¯ÃüÁî
+					USART_ClearFlag(USART2, USART_FLAG_TC);
+					USART_SendData(USART2, (uint8_t)'P');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET); delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)'A');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)1);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)kp);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)(kp>>8));
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					
+					USART_SendData(USART2, (uint8_t)'P');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)'A');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)2);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)ti);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)(ti>>8));
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					
+					USART_SendData(USART2, (uint8_t)'P');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)'A');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)3);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)td);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)(td>>8));
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+										
+					USART_SendData(USART2, (uint8_t)'P');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)'A');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)4);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)IBAND);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)(IBAND>>8));
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					
+					USART_SendData(USART2, (uint8_t)'T');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET); delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)'S');
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET); delay_ms(dtime);
+					TKK=TK/2;
+					USART_SendData(USART2, (uint8_t)TKK);
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					USART_SendData(USART2, (uint8_t)(TKK>>8));
+					while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);  delay_ms(dtime);
+					TIM_Cmd(TIM8, ENABLE);
+					RxBuffer[0] = 0; RxCounter = 0;
+					ZV=ZVV=MARK=VADD=0;
+					YK=EK=EK_1=ZEK=AEK=0;
+					UK=CK=0;
+				break;
+				case 0x61:								// Í£Ö¹ÃüÁî
+					TIM_Cmd(TIM8, DISABLE); TIM_SetCompare3(TIM3,256);	//ÉèÖÃPWM³õÖµ
+					clear_rxbuf();
+				break;
+				case 0x62:								// kp
+					if(RxCounter>=3) {
+						kp = RxBuffer[1]|(RxBuffer[2]<<8);
+						clear_rxbuf();
+					}
+				break;
+				case 0x63:								// ti
+					if(RxCounter>=3) {
+						ti = RxBuffer[1]|(RxBuffer[2]<<8);
+						clear_rxbuf();
+					}
+				break;
+				case 0x64:								// td
+					if(RxCounter>=3) {
+						td = RxBuffer[1]|(RxBuffer[2]<<8);
+						clear_rxbuf();
+					}
+				break;
+				case 0x65:								// IBAND
+					if(RxCounter>=3) {
+						IBAND = RxBuffer[1]|(RxBuffer[2]<<8);
+						clear_rxbuf();
+					}
+				break;
+				default: 
+					break;
+			}
+			if(TK<TC)
+      {
+				TC=0;
+				YK=ZVV;							
+				pid();				//µ÷PID×Óº¯Êý
+				PWM=255-UK;
+				TIM_SetCompare3(TIM3,PWM);
+				DAOUT1=SPEC*24+2048;
+				DAOUT2=ZVV*24+2048;
+				DAC_SetChannel1Data(DAC_Align_12b_R,DAOUT1);         //Êä³ö¸ø¶¨×ªËÙ
+				DAC_SetChannel2Data(DAC_Align_12b_R,DAOUT2);         //Êä³öÊµ¼Ê×ªËÙ
+				USART_SendData(USART2, (uint8_t)SPEC);
+				while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET) {} delay_ms(dtime);
+				delay_us(100);
+				USART_SendData(USART2, (uint8_t)ZVV);
+				while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET) {} delay_ms(dtime);
+				delay_us(100);
+				USART_SendData(USART2, (uint8_t)CK);
+				while (USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET) {} delay_ms(dtime);
+      }			
+    }
+}
+
+void pid(void)					//PID×Óº¯ÊýÌå
+{  
+   EK=SPEC-YK;							
+   AEK=EK-EK_1;   					
+
+   if ( (fabs(EK)>IBAND) || ti==0)  
+		I=0;
+   else    
+   	{
+   	ZEK=ZEK+EK;						
+		I=ZEK*TK;
+		I=I/ti;
+	}
+
+   P=EK;								
+   D=td*AEK;							
+   D=D/TK;
+
+   K=kp*(P+I+D);						
+   if(K>127) K=127;						
+   if(K<-128) K=-128;
+   UK = K;
+	 CK=UK;
+   EK_1=EK;
+   UK=UK+128;
+}
+
+void COM_Init(void)
+{
+	USART_InitTypeDef USART_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+
+	/* Configure USART Tx as alternate function  */
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	
+	/* Configure USART Rx as alternate function  */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource5, GPIO_AF_USART2);
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource6, GPIO_AF_USART2);
+		
+	/* USART configuration */
+	USART_InitStructure.USART_BaudRate = 9600;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+	USART_Init(USART2, &USART_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x03;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+	/* Enable USART */
+	USART_Cmd(USART2, ENABLE);
+	//USART_ClearFlag(USART2, USART_FLAG_TC);
+	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+	USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+}
