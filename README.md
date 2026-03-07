@@ -118,6 +118,9 @@
 - [3.jpg](3.jpg) / [4.jpg](4.jpg) / [mmexport1751788692686.jpg](mmexport1751788692686.jpg)
 - [贫血吃.png](贫血吃.png)
 - [高中语文必背古诗文72篇(1).docx](高中语文必背古诗文72篇(1).docx)
+### 🖼️ **ima**
+【ima知识库】热工 https://ima.qq.com/wiki/?shareId=67571401cfb2c537036a39dc3d45e767bb6e78dfa7a1a23b1ade5e7cf295eb1f
+有一个链接然后就能进入我的主页了 然后就能看别的了
 
 ### 📄 **仓库基础文件**
 - [README.md](README.md)
